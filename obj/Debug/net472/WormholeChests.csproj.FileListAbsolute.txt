@@ -1,0 +1,9 @@
+C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\obj\Debug\net472\WormholeChests.csproj.AssemblyReference.cache
+C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\obj\Debug\net472\WormholeChests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\obj\Debug\net472\WormholeChests.AssemblyInfoInputs.cache
+C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\obj\Debug\net472\WormholeChests.AssemblyInfo.cs
+C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\obj\Debug\net472\WormholeChests.csproj.CoreCompileInputs.cache
+C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\bin\Debug\net472\WormholeChests.dll
+C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\bin\Debug\net472\WormholeChests.pdb
+C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\obj\Debug\net472\WormholeChests.dll
+C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\obj\Debug\net472\WormholeChests.pdb
