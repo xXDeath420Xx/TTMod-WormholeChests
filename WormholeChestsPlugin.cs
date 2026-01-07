@@ -14,6 +14,7 @@ using UnityEngine;
 using TechCategory = Unlock.TechCategory;
 using CoreType = ResearchCoreDefinition.CoreType;
 using ResearchTier = TechTreeState.ResearchTier;
+using TechtonicaFramework.TechTree;
 
 namespace WormholeChests
 {
@@ -28,6 +29,7 @@ namespace WormholeChests
     [BepInPlugin(MyGUID, PluginName, VersionString)]
     [BepInDependency("com.equinox.EquinoxsModUtils")]
     [BepInDependency("com.equinox.EMUAdditions")]
+    [BepInDependency("com.certifired.TechtonicaFramework")]
     public class WormholeChestsPlugin : BaseUnityPlugin
     {
         private const string MyGUID = "com.equinox.WormholeChests";
@@ -69,7 +71,7 @@ namespace WormholeChests
             // Add new unlock using EMUAdditions (EMU 6.1.3 compatible - no numScansNeeded)
             EMUAdditions.AddNewUnlock(new NewUnlockDetails
             {
-                category = TechCategory.Science,
+                category = ModdedTabModule.ModdedCategory,
                 coreTypeNeeded = CoreType.Blue,
                 coreCountNeeded = 2000,
                 description = "Allow chests on the same channel to share inventories.",

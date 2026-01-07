@@ -65,10 +65,10 @@
       <HintPath>$(PluginDir)\Equinox-EMUAdditions\EMUAdditions\EMUAdditions.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="TechtonicaFramework">
+      <HintPath>$(PluginDir)\CertiFried-TechtonicaFramework\TechtonicaFramework.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <MakeDir Directories="$(PluginDir)\$(AssemblyName)" />
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginDir)\$(AssemblyName)" />
-  </Target>
 </Project>

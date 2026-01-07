@@ -7,3 +7,4 @@ C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\bin\Debug\net472\WormholeCh
 C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\bin\Debug\net472\WormholeChests.pdb
 C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\obj\Debug\net472\WormholeChests.dll
 C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\obj\Debug\net472\WormholeChests.pdb
+C:\Users\crawf\TechtonicaMods\NewMods\WormholeChests\obj\Debug\net472\WormholeChests.sourcelink.json
