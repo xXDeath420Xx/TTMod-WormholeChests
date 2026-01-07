@@ -34,7 +34,7 @@ namespace WormholeChests
     {
         private const string MyGUID = "com.equinox.WormholeChests";
         private const string PluginName = "WormholeChests";
-        private const string VersionString = "3.0.9";
+        private const string VersionString = "3.1.1";
 
         private static readonly Harmony Harmony = new Harmony(MyGUID);
         public static ManualLogSource Log;
@@ -43,6 +43,10 @@ namespace WormholeChests
         public static Texture2D wormholeTexture;
 
         public static ConfigEntry<bool> freeWormholeChests;
+        public static ConfigEntry<bool> useRelativePositioning;
+        public static ConfigEntry<float> relativeXPercent;
+        public static ConfigEntry<float> relativeYPercent;
+        public static ConfigEntry<float> relativeButtonXPercent;
         public static ConfigEntry<float> channelBoxXOffset;
         public static ConfigEntry<float> channelBoxYOffset;
         public static ConfigEntry<float> channelBoxWidth;
@@ -174,14 +178,29 @@ namespace WormholeChests
         {
             freeWormholeChests = Config.Bind("General", "Free Wormhole Chests", false,
                 new ConfigDescription("Disables the cost of creating Wormhole Chests. Cheat, not recommended."));
-            channelBoxXOffset = Config.Bind("GUI Layout", "Channel Box X Offset", 32f,
-                new ConfigDescription("Controls the horizontal position of the Channel box in a Chest's GUI."));
-            channelBoxYOffset = Config.Bind("GUI Layout", "Channel Box Y Offset", -355f,
-                new ConfigDescription("Controls the vertical position of the Channel box in a Chest's GUI."));
+
+            // Resolution-aware positioning (recommended)
+            useRelativePositioning = Config.Bind("GUI Layout", "Use Relative Positioning", true,
+                new ConfigDescription("When enabled, UI positions are calculated as percentage of screen size for proper scaling across all resolutions. Disable to use fixed pixel offsets instead."));
+            relativeXPercent = Config.Bind("GUI Layout", "Relative X Position", 0.28f,
+                new ConfigDescription("Horizontal position of channel input as percentage of screen width (0.0 = left, 0.5 = center, 1.0 = right). Default 0.28 places it left of storage title. Only used when Use Relative Positioning is enabled.",
+                new AcceptableValueRange<float>(0f, 1f)));
+            relativeYPercent = Config.Bind("GUI Layout", "Relative Y Position", 0.22f,
+                new ConfigDescription("Vertical position as percentage of screen height (0.0 = top, 0.5 = center, 1.0 = bottom). Default 0.22 aligns with storage title area. Only used when Use Relative Positioning is enabled.",
+                new AcceptableValueRange<float>(0f, 1f)));
+            relativeButtonXPercent = Config.Bind("GUI Layout", "Relative Button X Position", 0.58f,
+                new ConfigDescription("Horizontal position of Create/Link button as percentage of screen width. Default 0.58 places it right of storage title. Only used when Use Relative Positioning is enabled.",
+                new AcceptableValueRange<float>(0f, 1f)));
+
+            // Fixed pixel offsets (legacy, for manual fine-tuning)
+            channelBoxXOffset = Config.Bind("GUI Layout (Fixed)", "Channel Box X Offset", 32f,
+                new ConfigDescription("Fixed pixel offset from screen center. Only used when Use Relative Positioning is disabled."));
+            channelBoxYOffset = Config.Bind("GUI Layout (Fixed)", "Channel Box Y Offset", -550f,
+                new ConfigDescription("Fixed pixel offset from screen center. Only used when Use Relative Positioning is disabled. For ultrawide (3440x1440), try -550."));
             channelBoxWidth = Config.Bind("GUI Layout", "Channel Box Width", 240f,
-                new ConfigDescription("Controls the width of the Channel box in a Chest's GUI."));
+                new ConfigDescription("Width of the Channel input box."));
             createButtonXOffset = Config.Bind("GUI Layout", "Create Button X Offset", 444f,
-                new ConfigDescription("Controls the horizontal position of the Create / Link button in a Chest's GUI."));
+                new ConfigDescription("Horizontal offset of Create/Link button from the Channel box."));
         }
 
         private void ApplyPatches()
@@ -501,12 +520,24 @@ namespace WormholeChests
         private static Texture2D textBoxHover;
 
         public static bool freeChests => WormholeChestsPlugin.freeWormholeChests.Value;
+        public static bool useRelative => WormholeChestsPlugin.useRelativePositioning.Value;
         public static float channelBoxXOffset => WormholeChestsPlugin.channelBoxXOffset.Value;
         public static float channelBoxYOffset => WormholeChestsPlugin.channelBoxYOffset.Value;
         public static float channelBoxWidth => WormholeChestsPlugin.channelBoxWidth.Value;
         public static float createButtonXOffset => WormholeChestsPlugin.createButtonXOffset.Value;
-        public static float xPos => Screen.width / 2f + channelBoxXOffset;
-        public static float yPos => Screen.height / 2f + channelBoxYOffset;
+
+        // Resolution-aware positioning: use percentage-based or fixed offset based on config
+        public static float xPos => useRelative
+            ? Screen.width * WormholeChestsPlugin.relativeXPercent.Value
+            : Screen.width / 2f + channelBoxXOffset;
+
+        public static float yPos => useRelative
+            ? Screen.height * WormholeChestsPlugin.relativeYPercent.Value
+            : Screen.height / 2f + channelBoxYOffset;
+
+        public static float buttonXPos => useRelative
+            ? Screen.width * WormholeChestsPlugin.relativeButtonXPercent.Value
+            : xPos + createButtonXOffset;
 
         public static void LoadImages()
         {
@@ -638,7 +669,7 @@ namespace WormholeChests
 
             string buttonText = channelExists ? "Link" : "Create";
 
-            if (GUI.Button(new Rect(xPos + createButtonXOffset, yPos, channelBoxWidth, 40f), buttonText, buttonStyle))
+            if (GUI.Button(new Rect(buttonXPos, yPos, channelBoxWidth, 40f), buttonText, buttonStyle))
             {
                 if (!freeChests)
                 {
@@ -717,9 +748,9 @@ namespace WormholeChests
             GUIStyle iconStyle = new GUIStyle();
             iconStyle.normal.background = null;
 
-            GUI.Box(new Rect(xPos + createButtonXOffset + channelBoxWidth - 35f, yPos + 5f, 30f, 30f),
+            GUI.Box(new Rect(buttonXPos + channelBoxWidth - 35f, yPos + 5f, 30f, 30f),
                 EMU.Images.GetImageForResource("Research Core 480nm (Blue)"), iconStyle);
-            GUI.Label(new Rect(xPos + createButtonXOffset + 10f, yPos + 5f, channelBoxWidth - 50f, 30f), costText, costStyle);
+            GUI.Label(new Rect(buttonXPos + 10f, yPos + 5f, channelBoxWidth - 50f, 30f), costText, costStyle);
         }
 
         private static void DrawLinkedLabel()
@@ -740,7 +771,7 @@ namespace WormholeChests
                 linkedStyle.normal.textColor = Color.green;
                 linkedStyle.normal.background = textBoxNormal;
 
-                GUI.Box(new Rect(xPos + createButtonXOffset, yPos, channelBoxWidth, 40f), "Linked!", linkedStyle);
+                GUI.Box(new Rect(buttonXPos, yPos, channelBoxWidth, 40f), "Linked!", linkedStyle);
             }
         }
     }

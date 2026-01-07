@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WormholeChests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2f4ade64ccbee8d918d3423c0d4afe89a2aafb4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b74712e9430e751053a6333c8fe52a5d91c0a0b")]
 [assembly: System.Reflection.AssemblyProductAttribute("WormholeChests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WormholeChests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

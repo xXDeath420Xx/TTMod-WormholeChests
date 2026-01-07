@@ -2,6 +2,35 @@
 
 All notable changes to WormholeChests will be documented in this file.
 
+## [3.1.1] - 2026-01-07
+
+### Fixed
+- Minor stability improvements
+- Compatibility updates
+
+## [3.1.1] - 2025-01-06
+
+### Changed
+- **Repositioned channel UI** - Channel input and Create/Link button now positioned on either side of the storage title area
+  - Input box at 28% from left (left of "Storage" title)
+  - Create/Link button at 58% from left (right of "Storage" title)
+  - Y position at 22% from top to align with storage title area
+- Added new config option `Relative Button X Position` for independent button positioning
+- UI no longer overlaps with storage contents (fixes GitHub issue #1)
+
+### Fixed
+- Channel input positioning on ultrawide (3440x1440) and other resolutions
+
+## [3.1.0] - 2025-01-06
+
+### Added
+- Resolution-independent UI positioning using percentage-based coordinates
+- Works correctly on all resolutions including ultrawide (3440x1440) and 4K
+- New config options for relative positioning
+
+### Changed
+- Default positioning updated for better visibility across screen sizes
+
 ## [3.0.4] - 2026-01-03
 
 ### Fixed
