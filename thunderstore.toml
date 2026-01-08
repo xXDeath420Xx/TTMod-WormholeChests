@@ -1,0 +1,36 @@
+[config]
+schemaVersion = "0.0.1"
+
+[general]
+repository = "https://thunderstore.io"
+
+[package]
+namespace = "CertiFried"
+name = "WormholeChests_Updated"
+versionNumber = "3.1.1"
+description = "Chests on the same channel share inventory. Resolution-independent UI now positioned above storage GUI. Updated for EMU 6.1.3."
+websiteUrl = "https://github.com/xXDeath420Xx/TTMod-WormholeChests"
+containsNsfwContent = false
+
+[package.dependencies]
+BepInEx-BepInExPack = "5.4.2100"
+Equinox-EquinoxsModUtils = "6.1.3"
+Equinox-EMUAdditions = "2.0.0"
+
+[build]
+icon = "./icon.png"
+readme = "./README.md"
+outdir = "./build"
+
+[[build.copy]]
+source = "./bin/Release/net472/WormholeChests.dll"
+target = "/"
+
+[[build.copy]]
+source = "./CHANGELOG.md"
+target = "/"
+
+[publish]
+repository = "https://thunderstore.io"
+communities = ["techtonica"]
+

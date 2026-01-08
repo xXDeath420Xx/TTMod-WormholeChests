@@ -1,0 +1,10 @@
+{
+    "name":  "WormholeChests_Updated",
+    "version_number":  "3.1.1",
+    "website_url":  "https://github.com/CertiFried-Mods/TTMod-WormholeChests",
+    "description":  "Adds connected storage chests that share inventory across wormhole links",
+    "dependencies":  [
+                         "BepInEx-BepInExPack-5.4.2100",
+                         "Equinox-EquinoxsModUtils-6.1.1"
+                     ]
+}
